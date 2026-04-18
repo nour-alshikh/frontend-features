@@ -7,3 +7,5 @@
 @docs/countdown-timer.md
 @docs/search-debounce.md
 @docs/progress-bar.md
+@docs/form-builder.md
+@docs/drag-drop.md

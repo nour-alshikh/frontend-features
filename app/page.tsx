@@ -31,6 +31,16 @@ const features = [
     description: "Progress bar with colors, sizes, indeterminate mode, and live slider preview.",
     href: "/demo/progress-bar",
   },
+  {
+    title: "Form Builder",
+    description: "Drag-free form builder with 7 field types, inline editor, and live preview.",
+    href: "/demo/form-builder",
+  },
+  {
+    title: "Drag & Drop",
+    description: "File dropzone and sortable list using native HTML5 drag API.",
+    href: "/demo/drag-drop",
+  },
 ];
 
 export default function Dashboard() {
