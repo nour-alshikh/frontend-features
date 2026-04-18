@@ -6,3 +6,4 @@
 @docs/theme-toggle.md
 @docs/countdown-timer.md
 @docs/search-debounce.md
+@docs/progress-bar.md

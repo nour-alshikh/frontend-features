@@ -26,6 +26,11 @@ const features = [
     description: "Debounced search input tested against the GitHub repositories API.",
     href: "/demo/search-debounce",
   },
+  {
+    title: "Progress Bar",
+    description: "Progress bar with colors, sizes, indeterminate mode, and live slider preview.",
+    href: "/demo/progress-bar",
+  },
 ];
 
 export default function Dashboard() {
