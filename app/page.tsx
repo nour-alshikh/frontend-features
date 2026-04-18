@@ -16,6 +16,11 @@ const features = [
     description: "Light/dark mode toggle using next-themes with SSR-safe rendering.",
     href: "/demo/theme-toggle",
   },
+  {
+    title: "Countdown Timer",
+    description: "SVG ring timer with start/pause/reset and onComplete callback.",
+    href: "/demo/countdown-timer",
+  },
 ];
 
 export default function Dashboard() {

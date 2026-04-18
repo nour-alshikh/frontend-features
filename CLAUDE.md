@@ -4,3 +4,4 @@
 @docs/star-rating.md
 @docs/modal.md
 @docs/theme-toggle.md
+@docs/countdown-timer.md
