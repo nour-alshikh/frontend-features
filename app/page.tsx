@@ -21,6 +21,11 @@ const features = [
     description: "SVG ring timer with start/pause/reset and onComplete callback.",
     href: "/demo/countdown-timer",
   },
+  {
+    title: "Search + Debounce",
+    description: "Debounced search input tested against the GitHub repositories API.",
+    href: "/demo/search-debounce",
+  },
 ];
 
 export default function Dashboard() {
