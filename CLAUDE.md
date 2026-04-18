@@ -2,3 +2,5 @@
 
 # Component Docs
 @docs/star-rating.md
+@docs/modal.md
+@docs/theme-toggle.md

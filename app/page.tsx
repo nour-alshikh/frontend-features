@@ -6,6 +6,16 @@ const features = [
     description: "Interactive and read-only star rating with size variants.",
     href: "/demo/star-rating",
   },
+  {
+    title: "Modal",
+    description: "Accessible modal with focus trap, Esc key, backdrop close, and enter animation.",
+    href: "/demo/modal",
+  },
+  {
+    title: "Theme Toggle",
+    description: "Light/dark mode toggle using next-themes with SSR-safe rendering.",
+    href: "/demo/theme-toggle",
+  },
 ];
 
 export default function Dashboard() {
