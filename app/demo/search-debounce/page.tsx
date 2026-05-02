@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -17,19 +17,29 @@ interface Repo {
 
 type Status = "idle" | "loading" | "done" | "error";
 
+const PER_PAGE = 9;
+
 export default function SearchDebounceDemo() {
   const [query, setQuery] = useState("");
   const [repos, setRepos] = useState<Repo[]>([]);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   const debounced = useDebounce(query.trim(), 400);
+
+  // Reset pagination whenever the query changes
+  useEffect(() => {
+    setPage(1);
+    setRepos([]);
+    setTotalCount(0);
+  }, [debounced]);
 
   useEffect(() => {
     const controller = new AbortController();
 
     if (!debounced) {
-      setRepos([]);
       setStatus("idle");
       return () => controller.abort();
     }
@@ -38,7 +48,7 @@ export default function SearchDebounceDemo() {
     setError("");
 
     fetch(
-      `https://api.github.com/search/repositories?q=${encodeURIComponent(debounced)}&per_page=9&sort=stars`,
+      `https://api.github.com/search/repositories?q=${encodeURIComponent(debounced)}&per_page=${PER_PAGE}&page=${page}&sort=stars`,
       { signal: controller.signal }
     )
       .then((r) => {
@@ -46,7 +56,8 @@ export default function SearchDebounceDemo() {
         return r.json();
       })
       .then((data) => {
-        setRepos(data.items ?? []);
+        setTotalCount(data.total_count ?? 0);
+        setRepos((prev) => page === 1 ? (data.items ?? []) : [...prev, ...(data.items ?? [])]);
         setStatus("done");
       })
       .catch((e: Error) => {
@@ -57,9 +68,15 @@ export default function SearchDebounceDemo() {
       });
 
     return () => controller.abort();
-  }, [debounced]);
+  }, [debounced, page]);
 
-  const isLoading = status === "loading";
+  const handleLoadMore = useCallback(() => {
+    setPage((p) => p + 1);
+  }, []);
+
+  const isLoading = status === "loading" && page === 1;
+  const isLoadingMore = status === "loading" && page > 1;
+  const hasMore = repos.length < totalCount;
 
   return (
     <main className="min-h-screen bg-background text-foreground px-8 py-12">
@@ -79,63 +96,67 @@ export default function SearchDebounceDemo() {
         onChange={setQuery}
         placeholder="Search GitHub repositories…"
         loading={isLoading}
-        className="max-w-lg mb-8"
-      />
-
-      {/* Status line */}
-      {status === "done" && debounced && (
-        <p className="text-xs text-muted-foreground mb-4">
-          {repos.length} results for <span className="font-medium text-foreground">"{debounced}"</span>
-        </p>
-      )}
-      {status === "error" && (
-        <p className="text-sm text-destructive mb-4">{error}</p>
-      )}
-
-      {/* Results */}
-      {repos.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl">
-          {repos.map((repo) => (
-            <a
-              key={repo.id}
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col gap-2 rounded-xl border border-border bg-surface p-4 hover:border-accent transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <img
-                  src={repo.owner.avatar_url}
-                  alt={repo.owner.login}
-                  width={20}
-                  height={20}
-                  className="rounded-full"
-                />
-                <span className="text-xs text-muted-foreground truncate">{repo.owner.login}</span>
-              </div>
-              <p className="text-sm font-semibold text-foreground leading-snug truncate">
-                {repo.full_name.split("/")[1]}
+        loadingMore={isLoadingMore}
+        hasMore={hasMore}
+        onLoadMore={handleLoadMore}
+        skeletonCount={9}
+        className="max-w-4xl"
+      >
+        {repos.length > 0 && (
+          <>
+            {status === "done" && debounced && (
+              <p className="text-xs text-muted-foreground mb-4">
+                Showing {repos.length} of {totalCount.toLocaleString()} results for{" "}
+                <span className="font-medium text-foreground">"{debounced}"</span>
               </p>
-              {repo.description && (
-                <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
-                  {repo.description}
-                </p>
-              )}
-              <div className="flex items-center gap-3 mt-auto pt-1">
-                {repo.language && (
-                  <span className="text-xs text-muted-foreground">{repo.language}</span>
-                )}
-                <span className="text-xs text-muted-foreground ml-auto">
-                  ★ {repo.stargazers_count.toLocaleString()}
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
-      )}
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {repos.map((repo) => (
+                <a
+                  key={repo.id}
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col gap-2 rounded-xl border border-border bg-surface p-4 hover:border-accent transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={repo.owner.avatar_url}
+                      alt={repo.owner.login}
+                      width={20}
+                      height={20}
+                      className="rounded-full"
+                    />
+                    <span className="text-xs text-muted-foreground truncate">{repo.owner.login}</span>
+                  </div>
+                  <p className="text-sm font-semibold text-foreground leading-snug truncate">
+                    {repo.full_name.split("/")[1]}
+                  </p>
+                  {repo.description && (
+                    <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                      {repo.description}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-3 mt-auto pt-1">
+                    {repo.language && (
+                      <span className="text-xs text-muted-foreground">{repo.language}</span>
+                    )}
+                    <span className="text-xs text-muted-foreground ml-auto">
+                      ★ {repo.stargazers_count.toLocaleString()}
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </>
+        )}
+      </SearchInput>
 
+      {status === "error" && (
+        <p className="text-sm text-destructive mt-4">{error}</p>
+      )}
       {status === "idle" && (
-        <p className="text-sm text-muted-foreground">Start typing to search.</p>
+        <p className="text-sm text-muted-foreground mt-4">Start typing to search.</p>
       )}
     </main>
   );

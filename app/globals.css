@@ -3,21 +3,23 @@
 /* ─── Tailwind color tokens (light defaults) ─── */
 /* Tailwind generates --color-* vars in :root → bg-*, text-*, border-* utilities */
 @theme {
-  --color-background:             #ffffff;
-  --color-foreground:             #171717;
-  --color-surface:                #f4f4f5;
-  --color-surface-foreground:     #3f3f46;
-  --color-border:                 #e4e4e7;
-  --color-primary:                #18181b;
-  --color-primary-foreground:     #fafafa;
-  --color-muted:                  #f4f4f5;
-  --color-muted-foreground:       #71717a;
-  --color-accent:                 #6366f1;
-  --color-accent-foreground:      #ffffff;
-  --color-destructive:            #ef4444;
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --color-surface: #f4f4f5;
+  --color-surface-foreground: #3f3f46;
+  --color-border: #e4e4e7;
+  --color-primary: #18181b;
+  --color-primary-foreground: #fafafa;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-accent: #6366f1;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
-  --color-success:                #22c55e;
-  --color-success-foreground:     #ffffff;
+  --color-success: #22c55e;
+  --color-success-foreground: #ffffff;
+  --color-warning: #f59e0b;
+  --color-warning-foreground: #ffffff;
 }
 
 @theme inline {
@@ -28,21 +30,23 @@
 /* ─── Dark mode overrides ─── */
 /* next-themes adds .dark to <html> → these vars cascade to all children */
 .dark {
-  --color-background:             #09090b;
-  --color-foreground:             #fafafa;
-  --color-surface:                #18181b;
-  --color-surface-foreground:     #a1a1aa;
-  --color-border:                 #27272a;
-  --color-primary:                #fafafa;
-  --color-primary-foreground:     #18181b;
-  --color-muted:                  #27272a;
-  --color-muted-foreground:       #a1a1aa;
-  --color-accent:                 #818cf8;
-  --color-accent-foreground:      #ffffff;
-  --color-destructive:            #f87171;
+  --color-background: #09090b;
+  --color-foreground: #fafafa;
+  --color-surface: #18181b;
+  --color-surface-foreground: #a1a1aa;
+  --color-border: #27272a;
+  --color-primary: #fafafa;
+  --color-primary-foreground: #18181b;
+  --color-muted: #27272a;
+  --color-muted-foreground: #a1a1aa;
+  --color-accent: #818cf8;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #f87171;
   --color-destructive-foreground: #ffffff;
-  --color-success:                #4ade80;
-  --color-success-foreground:     #ffffff;
+  --color-success: #4ade80;
+  --color-success-foreground: #ffffff;
+  --color-warning: #fbbf24;
+  --color-warning-foreground: #ffffff;
 }
 
 body {
@@ -52,9 +56,70 @@ body {
 }
 
 @keyframes progress-indeterminate {
-  0%   { transform: translateX(-100%) scaleX(0.4); }
-  50%  { transform: translateX(60%)   scaleX(0.6); }
-  100% { transform: translateX(300%)  scaleX(0.4); }
+  0% {
+    transform: translateX(-100%) scaleX(0.4);
+  }
+
+  50% {
+    transform: translateX(60%) scaleX(0.6);
+  }
+
+  100% {
+    transform: translateX(300%) scaleX(0.4);
+  }
+}
+
+@keyframes toast-progress {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+}
+
+/* ─── Page / view transitions ─── */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes page-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Native View Transitions API (Chrome/Edge) */
+::view-transition-old(root) {
+  animation: page-out 0.25s ease forwards;
+}
+::view-transition-new(root) {
+  animation: page-in 0.25s ease forwards;
 }
 
 @keyframes modal-in {
@@ -62,8 +127,19 @@ body {
     opacity: 0;
     transform: scale(0.96) translateY(6px);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95) translateY(-4px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
 }

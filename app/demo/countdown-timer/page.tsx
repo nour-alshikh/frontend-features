@@ -28,7 +28,7 @@ export default function CountdownTimerDemo() {
         </Section>
 
         <Section label="Size lg — 5 minutes">
-          <CountdownTimer duration={300} size="lg" />
+          <CountdownTimer duration={30000} size="lg" />
         </Section>
 
         <Section label="onComplete callback — 10 seconds">

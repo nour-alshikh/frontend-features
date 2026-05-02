@@ -41,6 +41,106 @@ const features = [
     description: "File dropzone and sortable list using native HTML5 drag API.",
     href: "/demo/drag-drop",
   },
+  {
+    title: "Toast Notifications",
+    description: "Auto-dismissing toasts with four types, six positions, and stack support.",
+    href: "/demo/toast",
+  },
+  {
+    title: "Transitions",
+    description: "Context-coordinated show/hide animations, tab groups, step wizards, and page transitions.",
+    href: "/demo/transition",
+  },
+  {
+    title: "Command Palette",
+    description: "Keyboard-driven command launcher with fuzzy search, match highlighting, and grouped results.",
+    href: "/demo/command-palette",
+  },
+  {
+    title: "Data Table",
+    description: "Sortable, paginated table with row selection, custom cell renderers, and loading skeleton.",
+    href: "/demo/data-table",
+  },
+  {
+    title: "Tooltip",
+    description: "Portal-based tooltips with auto-flip, configurable delay, and keyboard accessibility.",
+    href: "/demo/tooltip",
+  },
+  {
+    title: "Skeleton",
+    description: "Composable loading placeholders — line, block, circle variants and card/row helpers.",
+    href: "/demo/skeleton",
+  },
+  {
+    title: "Accordion",
+    description: "Animated expand/collapse panels with single-open and multi-open modes.",
+    href: "/demo/accordion",
+  },
+  {
+    title: "Confirm Dialog",
+    description: "Modal-based confirmation prompt with default and destructive variants.",
+    href: "/demo/confirm-dialog",
+  },
+  {
+    title: "Banner / Alert",
+    description: "Inline feedback banners with four types, dismiss button, and title support.",
+    href: "/demo/banner",
+  },
+  {
+    title: "OTP Input",
+    description: "4–6 digit pin fields with auto-advance, backspace nav, paste support, and secure mode.",
+    href: "/demo/otp-input",
+  },
+  {
+    title: "Breadcrumbs",
+    description: "Navigation trail that collapses middle items on overflow.",
+    href: "/demo/breadcrumbs",
+  },
+  {
+    title: "Popover",
+    description: "Click-triggered floating panel with four sides, three alignments, and viewport clamping.",
+    href: "/demo/popover",
+  },
+  {
+    title: "Timeline",
+    description: "Vertical event list with connector lines, optional icons, and color-coded dots.",
+    href: "/demo/timeline",
+  },
+  {
+    title: "MultiSelect",
+    description: "Searchable tag input with chips, keyboard navigation, and backspace-to-remove.",
+    href: "/demo/multi-select",
+  },
+  {
+    title: "Date Picker",
+    description: "Calendar popup for single dates and ranges — keyboard nav, min/max, range hover preview.",
+    href: "/demo/date-picker",
+  },
+  {
+    title: "Color Picker",
+    description: "Hue/saturation canvas with hue slider and hex/rgb/hsl input — no dependencies.",
+    href: "/demo/color-picker",
+  },
+  {
+    title: "Rich Text Editor",
+    description: "Bold, italic, lists, headings, and alignment via contenteditable — no dependencies.",
+    href: "/demo/rich-text-editor",
+  },
+  {
+    title: "Charts",
+    description: "Bar, line, and pie/donut charts in pure SVG with hover tooltips — no chart libraries.",
+    href: "/demo/chart",
+  },
+  {
+    title: "Virtual List",
+    description: "Renders only visible rows for large datasets — smooth at 100,000+ items.",
+    href: "/demo/virtual-list",
+  },
+  {
+    title: "Resizable Panels",
+    description: "Drag-to-resize split layout — horizontal and vertical, nestable for multi-panel UIs.",
+    href: "/demo/resizable-panels",
+  },
 ];
 
 export default function Dashboard() {
