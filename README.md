@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend Features
 
-## Getting Started
+28 React UI components built from scratch, with no UI or component libraries. Each one has its own live demo page.
 
-First, run the development server:
+**Live demo:** https://nour-ui.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The only runtime dependencies are `next`, `react`, `react-dom` and `next-themes`. Everything else (positioning, keyboard handling, virtualization, drag and drop, focus management) is written by hand.
+
+<!-- Add a GIF or screenshots of 3–4 components here (command palette, data table, drag & drop, date picker). -->
+
+## Components
+
+| Overlays and feedback | Inputs and forms | Data and layout | Motion and misc |
+|---|---|---|---|
+| Modal | Date picker | Data table | Transition |
+| Confirm dialog | Color picker | Virtual list | Skeleton |
+| Popover | Multi-select | Chart | Progress bar |
+| Tooltip | OTP input | Timeline | Countdown timer |
+| Toast | Star rating | Accordion | Theme toggle |
+| Banner | Rich text editor | Breadcrumbs | |
+| Command palette | Form builder | Resizable panels | |
+| | Search with debounce | Drag & drop | |
+
+Notes on how several of them work are in [`docs/`](docs).
+
+## Tech stack
+
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · next-themes
+
+## Project structure
+
+```
+app/demo/<component>/   demo page for each component
+components/ui/          the components
+hooks/                  shared hooks (e.g. useDebounce)
+docs/                   implementation notes
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run it locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Then open http://localhost:3000.
